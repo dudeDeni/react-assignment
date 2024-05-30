@@ -5,25 +5,25 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import ItemCard from "../components/ItemCard";
 import Loader from "../components/Loader";
-import { getPosts } from "../features/news/newsListSlice";
+import { login } from "../features/auth/authSlice";
 
 
 function StoryList() {
   const dispatch = useAppDispatch();
-  const newsList = useAppSelector((state) => state.news.newsList)
-  const isLoading = useAppSelector((state) => state.news.status)
+  const newsList = useAppSelector((state) => state.auth.data);
+  const isLoading = useAppSelector((state) => state.auth.status);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
   useEffect(() => {
     if (basicUserInfo && newsList === null) {
-      dispatch(getPosts(basicUserInfo));
+      dispatch(login(basicUserInfo));
     }
   }, [dispatch, basicUserInfo]);
-  // Display error then 0 articles
+  
   return (
     <Container className='my-4 d-flex align-items-center pb-4'>
       <Row className='w-100 justify-content-center gx-3 gy-4'>
-        {isLoading !== "failed" || "loading" ? newsList?.map((obj, index) => {
+        {isLoading !== "loading" ? newsList?.map((obj, index) => {
           return (
             <ItemCard item={obj} key={index}/>
           );

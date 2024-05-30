@@ -6,23 +6,37 @@ export type User = {
   apiToken: string;
 };
 
-type UserProfileData = {
-  name: string;
-  email: string;
+export type ArticleBasicInfo = {
+  source: {
+    id: null;
+    name: string;
+  };
+  author: string;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string;
 };
 
 type AuthApiState = {
   basicUserInfo?: User | null;
-  userProfileData?: UserProfileData | null;
+  data?: Array<ArticleBasicInfo> | null;
   status: "idle" | "loading" | "failed";
   error: string | null;
 };
+
+type ResponseType = {
+  resData: Array<ArticleBasicInfo>;
+  user: User;
+}
 
 const initialState: AuthApiState = {
   basicUserInfo: localStorage.getItem("userInfo")
     ? JSON.parse(localStorage.getItem("userInfo") as string)
     : null,
-  userProfileData: undefined,
+  data: null,
   status: "idle",
   error: null,
 };
@@ -30,11 +44,16 @@ const initialState: AuthApiState = {
 export const login = createAsyncThunk("login", async (data: User) => {
   axiosInstance.defaults.headers.common['X-Api-Key'] = data.apiToken;
   const response = await axiosInstance.get("/top-headlines?country=us");
-  const resData = response.data;
+  const resData = response.data.articles;
 
   localStorage.setItem("userInfo", JSON.stringify(data));
 
-  return resData;
+  const payload: ResponseType = {
+    resData,
+    user: data
+  }
+
+  return payload;
 });
 
 export const logout = createAsyncThunk("logout", async () => {
@@ -58,9 +77,11 @@ const authSlice = createSlice({
       })
       .addCase(
         login.fulfilled,
-        (state, action: PayloadAction<User>) => {
+        (state, action: PayloadAction<ResponseType>) => {
+          console.log('case full of articles', action.payload)
+          state.basicUserInfo = action.payload.user;
+          state.data = action.payload.resData
           state.status = "idle";
-          state.basicUserInfo = action.payload;
         }
       )
       .addCase(login.rejected, (state, action) => {
@@ -72,7 +93,7 @@ const authSlice = createSlice({
         state.status = "loading";
         state.error = null;
       })
-      .addCase(logout.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state) => {
         state.status = "idle";
         state.basicUserInfo = null;
       })

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { login } from "../features/auth/authSlice";
-import { loadNews } from "../features/news/newsListSlice";
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
@@ -25,8 +24,6 @@ function Login() {
             apiToken,
           })
         )
-        .unwrap()
-        .then((payload) => dispatch(loadNews(payload.articles)));
       } catch (e) {
         console.error(e);
       }
