@@ -4,11 +4,15 @@ import { login } from "../features/auth/authSlice";
 
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Placeholder from 'react-bootstrap/Placeholder';
 import Form from 'react-bootstrap/Form';
 
 function Login() {
 
   const dispatch = useAppDispatch();
+
+  const hasError = useAppSelector((state) => state.auth.error)
+  const isLoading = useAppSelector((state) => state.auth.status)
 
   const [email, setEmail] = useState("");
   const [apiToken, setToken] = useState("");
@@ -34,8 +38,14 @@ function Login() {
 
   return (
     <Container className='w-100 my-4 d-flex align-items-center justify-content-center pb-4'>
-      <Form className="my-5" onSubmit={handleLogin}>
-        <Form.Group className="mb-3" controlId="formGroupEmail">
+      <Form className="my-5 w-50" onSubmit={handleLogin}>
+        <Form.Label className="display-6">Register for API key</Form.Label>
+        <Form.Label className=""><span>1. </span>Click on the link <a href="https://newsapi.org/register" target="_blank">https://newsapi.org/register</a> to visit the registration page.</Form.Label>
+        <Form.Label className=""><span>2. </span>Fill out the registration form with the required information to create an account.</Form.Label>
+        <Form.Label className=""><span>3. </span>Once you have successfully registered, you will receive an API key.</Form.Label>
+        <Form.Label className=""><span>4. </span>Copy the API key provided to you.</Form.Label>
+        <Form.Label className=""><span>5. </span>Use this API key to authenticate and access the News API.</Form.Label>
+        <Form.Group className="my-3" controlId="formGroupEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control 
             type="email" 
@@ -55,12 +65,18 @@ function Login() {
             }}
           />
         </Form.Group>
-        <Button 
-          variant="primary" 
-          type="submit"
-        >
-          Submit
-        </Button>
+        
+        {isLoading !== "idle" ? (
+          <Placeholder.Button variant="primary" xs={12} />
+        ) : (
+          <Button 
+            variant="primary" 
+            type="submit"
+          >
+            Submit
+          </Button>
+        )}
+      <span className="text-danger" >{hasError}</span>
       </Form>
     </Container>
   );

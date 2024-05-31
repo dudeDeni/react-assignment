@@ -1,6 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Image from 'react-bootstrap/Image';
 import logo from '../logo.svg'
 
 function ItemCard(props: any) {
@@ -11,7 +12,8 @@ function ItemCard(props: any) {
       <Card style={{ width: '15rem' }}  border="light" className='shadow h-100'>
         <a href={ item.url }  target="_blank" rel="noreferrer" className='link-secondary'>
           <Row className='justify-content-between'>
-            <Card.Img variant="top" src={item.urlToImage ? item.urlToImage : logo} alt={item.title} loading="lazy"/>
+            <Image src={item.urlToImage ? item.urlToImage : logo} alt={item.title}  loading="lazy" className='rounded '/>
+            {/* <Card.Img variant="top" src={item.urlToImage ? item.urlToImage : logo} alt={item.title} rounded loading="lazy"/> */}
             <Card.Body>
               <Card.Title className='fw-bold'> { item.title }</Card.Title>
               <Card.Text>

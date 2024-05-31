@@ -1,6 +1,7 @@
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
 import { logout } from './authSlice';
+
+import { useNavigate } from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
 
@@ -23,7 +24,8 @@ function Logout() {
       <Button 
         onClick={() => handleLogout()}
       >
-        Like
+        <span>|</span>&nbsp;&nbsp;&nbsp;
+        <span>Logout</span>
       </Button>
     </div>
   );

@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
+## Installation
+
+1. Clone the repository:
+git clone git@github.com:dudeDeni/react-assignment.git
+
+
+2. Install dependencies:
+npm install
+
+
+3. create .env in root and paste from .env.example
+
 ## Available Scripts
 
 In the project directory, you can run:

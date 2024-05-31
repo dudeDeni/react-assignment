@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -6,8 +5,6 @@ import StoreList from "./pages/StoryList";
 
 import DefaultLayout from "./layouts/Default";
 import ProtectedLayout from "./layouts/Protected";
-
-import './App.css';
 
 function App() {
   return (

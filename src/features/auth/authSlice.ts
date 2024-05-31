@@ -57,12 +57,12 @@ export const login = createAsyncThunk("login", async (data: User) => {
 });
 
 export const logout = createAsyncThunk("logout", async () => {
-  const response = await axiosInstance.post("/logout", {});
-  const resData = response.data;
+  // const response = await axiosInstance.post("/logout", {});
+  // const resData = response.data;
 
   localStorage.removeItem("userInfo");
 
-  return resData;
+  return
 });
 
 const authSlice = createSlice({
@@ -78,13 +78,13 @@ const authSlice = createSlice({
       .addCase(
         login.fulfilled,
         (state, action: PayloadAction<ResponseType>) => {
-          console.log('case full of articles', action.payload)
           state.basicUserInfo = action.payload.user;
           state.data = action.payload.resData
           state.status = "idle";
         }
       )
       .addCase(login.rejected, (state, action) => {
+        console.log(action)
         state.status = "failed";
         state.error = action.error.message || "Login failed";
       })
