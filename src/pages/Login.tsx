@@ -40,7 +40,7 @@ function Login() {
     <Container className='w-100 my-4 d-flex align-items-center justify-content-center pb-4'>
       <Form className="my-5 w-50" onSubmit={handleLogin}>
         <Form.Label className="display-6">Register for API key</Form.Label>
-        <Form.Label className=""><span>1. </span>Click on the link <a href="https://newsapi.org/register" target="_blank">https://newsapi.org/register</a> to visit the registration page.</Form.Label>
+        <Form.Label className=""><span>1. </span>Click on the link <a href="https://newsapi.org/register" target="_blank" rel="noreferrer">https://newsapi.org/register</a> to visit the registration page.</Form.Label>
         <Form.Label className=""><span>2. </span>Fill out the registration form with the required information to create an account.</Form.Label>
         <Form.Label className=""><span>3. </span>Once you have successfully registered, you will receive an API key.</Form.Label>
         <Form.Label className=""><span>4. </span>Copy the API key provided to you.</Form.Label>
